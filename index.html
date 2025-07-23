@@ -47,7 +47,7 @@
     <div class="flex items-center justify-center my-6">
         <button id="prev-hour" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">&lt;</button>
         <div class="flex-grow text-center font-semibold text-gray-700">Displaying Data</div>
-        <button id="next-hour" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">&gt;</button>
+        <button id="next-hour" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"> &gt;</button>
     </div>
 
     <div id="charts-container" class="space-y-10">
@@ -4523,21 +4523,20 @@ function updateAllCharts() {
     }
 
     // 1. Process and Render Wave Height Chart
-    const hpData = aggregateTwoSeries(processedDataHp, interval, date, hour, 'hp13', 'hp12');
+    const hpData = aggregateTwoSeries(processedDataHp, interval, date, hour, 'hp12', 'hp13');
     waveChart = renderChart(waveChart, 'waveChart', hpData.labels, [
-        { label: 'Hp Node 12 (Front)', data: hpData.series2, borderColor: 'rgb(59, 130, 246)', tension: 0.1, pointRadius: 0, fill: true, backgroundColor: 'rgba(59, 130, 246, 0.1)' },
-        { label: 'Hp Node 13 (Back)', data: hpData.series1, borderColor: 'rgb(16, 185, 129)', tension: 0.1, pointRadius: 0, fill: true, backgroundColor: 'rgba(16, 185, 129, 0.1)' }
+        { label: 'Hp Node 12 (Front)', data: hpData.series1, borderColor: 'rgb(59, 130, 246)', tension: 0.1, pointRadius: 0, fill: true, backgroundColor: 'rgba(59, 130, 246, 0.1)' },
+        { label: 'Hp Node 13 (Back)', data: hpData.series2, borderColor: 'rgb(16, 185, 129)', tension: 0.1, pointRadius: 0, fill: true, backgroundColor: 'rgba(16, 185, 129, 0.1)' }
     ], xAxisTitle, 'Wave Height (Hp) in meters');
     waveChart.options.scales.y.min = 0;
     waveChart.options.scales.y.max = 0.25;
 
     // 2. Process and Render Water Level Chart
-    const levelData = aggregateTwoSeries(processedDataLevel, interval, date, hour, 'level13', 'level12');
+    const levelData = aggregateTwoSeries(processedDataLevel, interval, date, hour, 'level12', 'level13');
     levelChart = renderChart(levelChart, 'levelChart', levelData.labels, [
-        { label: 'Water Level 12 (Front)', data: levelData.series2, borderColor: 'rgb(239, 68, 68)', tension: 0.1, pointRadius: 0, fill: true, backgroundColor: 'rgba(239, 68, 68, 0.1)' },
-        { label: 'Water Level 13 (Back)', data: levelData.series1, borderColor: 'rgb(249, 115, 22)', tension: 0.1, pointRadius: 0, fill: true, backgroundColor: 'rgba(249, 115, 22, 0.1)' }
+        { label: 'Water Level 12 (Front)', data: levelData.series1, borderColor: 'rgb(239, 68, 68)', tension: 0.1, pointRadius: 0, fill: true, backgroundColor: 'rgba(239, 68, 68, 0.1)' },
+        { label: 'Water Level 13 (Back)', data: levelData.series2, borderColor: 'rgb(249, 115, 22)', tension: 0.1, pointRadius: 0, fill: true, backgroundColor: 'rgba(249, 115, 22, 0.1)' }
     ], xAxisTitle, 'Water Level in meters');
-    levelChart.options.scales.y.max = 1.5;
 
     // 3. Process and Render Wave Coefficient Chart
     const ktData = aggregateOneSeries(processedDataKt, interval, date, hour, 'kt');
@@ -4579,8 +4578,8 @@ nextButton.addEventListener('click', () => {
 
 // --- Init ---
 document.addEventListener('DOMContentLoaded', () => {
-  processedDataHp = parseTwoSeriesCSV(csvDataHp, 'hp13', 'hp12');
-  processedDataLevel = parseTwoSeriesCSV(csvDataLevel, 'level13', 'level12');
+  processedDataHp = parseTwoSeriesCSV(csvDataHp, 'hp12', 'hp13');
+  processedDataLevel = parseTwoSeriesCSV(csvDataLevel, 'level12', 'level13');
   processedDataKt = parseOneSeriesCSV(csvDataKt, 'kt');
   allProcessedData = [...processedDataHp, ...processedDataLevel, ...processedDataKt];
 
